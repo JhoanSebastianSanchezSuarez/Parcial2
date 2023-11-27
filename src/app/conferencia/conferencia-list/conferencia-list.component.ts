@@ -15,25 +15,33 @@ export class ConferenciaListComponent implements OnInit {
 
   currentDate: Date = new Date();
 
+  selected: boolean = false;
+  selectedConferencia!: Conferencia;
+
   constructor(private conferenciaService: ConferenciaService) { }
 
   getConferencias():void{
     this.conferenciaService.getConferencias().subscribe((conferencias) => {
       this.conferencias = conferencias;
+      this.getProximasConferencias();
     });
   }
 
   getProximasConferencias():void{
     this.conferencias.forEach(conferencia =>{
-      if(conferencia.starts > this.currentDate){
+      if(new Date(conferencia.starts) > this.currentDate){
         this.proximas += 1;
       }
     })
   }
 
+  onSelected(conferencia: Conferencia):void{
+    this.selected=true;
+    this.selectedConferencia = conferencia;
+  }
+
   ngOnInit() {
     this.getConferencias();
-    this.getProximasConferencias();
   }
 
 }

@@ -1,21 +1,29 @@
 <div class="containe-fluid">
-  <table class = "table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Starts</th>
-        <th>Ends</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let conferencia of conferencias">
-        <td>{{ conferencia.id }}</td>
-        <td>{{ conferencia.name }}</td>
-        <td>{{ conferencia.starts}}</td>
-        <td>{{ conferencia.ends }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p>Upcoming conferences: {{proximas}}</p>
+  <div class="row">
+    <div class="col-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Starts</th>
+            <th>Ends</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let conferencia of conferencias">
+            <td>{{ conferencia.id }}</td>
+            <td (click)="onSelected(conferencia)">{{ conferencia.name }}</td>
+            <td>{{ conferencia.starts }}</td>
+            <td>{{ conferencia.ends }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Upcoming conferences: {{ proximas }}</p>
+    </div>
+    <div *ngIf="selected" class="col-6">
+      <app-conferencia-detail [conferenciaDetail]="selectedConferencia">
+      </app-conferencia-detail>
+    </div>
+  </div>
 </div>
